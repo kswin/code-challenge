@@ -13,14 +13,14 @@ Parse the data dump and make the data accessible in a structured, RESTful manner
 * [Mongoose] - provides MongoDB object mapping 
 
 ### Installation
-1. Install [MongodDB] and [node.js]
+1. Install [MongoDB] and [node.js]
 2. From a tab in your Terminal, start MongoDB in the background
 ```
 $ mongod
 ``` 
 3. From another tab in your Terminal, clone the git project and start the app
 ```sh
-$ git clone [git-repo-url] code-challenge
+$ git clone https://github.com/kswin/code-challenge.git code-challenge
 $ cd code-challenge
 $ npm install
 $ DEBUG=code_challenge:* npm start
@@ -47,4 +47,3 @@ $ DEBUG=code_challenge:* npm start
 [node.js]:http://nodejs.org
 [express]:http://expressjs.com
 [Mongoose]:http://mongoosejs.com/docs/guide.html
-[git-repo-url]:https://github.com/kswin/code-challenge.git

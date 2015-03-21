@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/', exercises);
 
-mongoose.connect('mongodb://localhost/test', function(err) {
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/test', function(err) {
     if(err) {
         console.log('Connection error', err);
     } else {

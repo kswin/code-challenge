@@ -1,7 +1,7 @@
 {
-  "swaggger": "2.0",
+  "swagger": "2.0",
   "info": {
-    "description": "API for getting skill-building exercises.",
+    "description": "Parse the data dump and make the data accessible in a structured, RESTful manner.",
     "title": "Code Challenge",
     "version": "1.0"
   },
@@ -11,12 +11,19 @@
   "produces": [
     "application/json"
   ],
+  "tags": [
+    {
+      "name": "exercises",
+      "description": "Used to create skill-enhancing assessments."
+    }
+  ],
   "paths": {
     "/exercises": {
       "get": {
         "description": "Returns all exercises in the system.",
         "produces": ["application/json"],
         "parameters": [],
+        "tags": ["exercises"],
         "responses": {
           "200": {
             "description": "A list of exercises.",
@@ -41,7 +48,9 @@
         },
         "distractors": {
           "type": "array",
-          "items": "string"
+          "items": {
+            "type": "string"
+          }
         },
         "question": {
           "type": "string"

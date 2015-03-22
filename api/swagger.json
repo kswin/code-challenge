@@ -22,7 +22,6 @@
       "get": {
         "description": "Returns all exercises in the system.",
         "produces": ["application/json"],
-        "parameters": [],
         "tags": ["exercises"],
         "responses": {
           "200": {

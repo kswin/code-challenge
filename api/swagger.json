@@ -1,0 +1,57 @@
+{
+  "swaggger": "2.0",
+  "info": {
+    "description": "API for getting skill-building exercises.",
+    "title": "Code Challenge",
+    "version": "1.0"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/exercises": {
+      "get": {
+        "description": "Returns all exercises in the system.",
+        "produces": ["application/json"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A list of exercises.",
+            "schema": {
+              "type": "array",
+              "items":  {
+                "$ref": "#/definitions/Exercise"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Exercise": {
+      "id": "Exercise",
+      "required": ["question", "answer", "distractors"],
+      "properties": {
+        "answer": {
+          "type": "string"
+        },
+        "distractors": {
+          "type": "array",
+          "items": "string"
+        },
+        "question": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "responses": {
+    "NotFound": {
+      "description": "Entity not found"
+    }
+  }
+}

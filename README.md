@@ -3,7 +3,7 @@
 Parse the data dump and make the data accessible in a structured, RESTful manner.
 
 ### Version
-0.0.0
+1.0.0
 
 ### Tech
 
@@ -11,7 +11,7 @@ Parse the data dump and make the data accessible in a structured, RESTful manner
 * [Express] - fast node.js network app framework 
 * [MongoDB] - document-oriented database 
 * [Mongoose] - provides MongoDB object mapping 
-* [Swagger UI] - REST API documentation
+* [swagger-ui] - REST API documentation
 
 ### Installation
 1. Install [MongoDB] and [node.js]
@@ -19,12 +19,23 @@ Parse the data dump and make the data accessible in a structured, RESTful manner
 ```
 $ mongod
 ``` 
-3. From another tab in your Terminal, clone the git project and start the app
+3. From another tab in your Terminal, clone the git project
 ```sh
 $ git clone https://github.com/kswin/code-challenge.git code-challenge
+```
+4. Install dependencies
+```sh
 $ cd code-challenge
+$ npm install -g gulp //globally install gulp for easier development
 $ npm install
-$ DEBUG=code_challenge:* gulp &&  npm start
+```
+5. Build the app
+```sh
+gulp
+```
+6. Start the app
+```sh
+$ DEBUG=code_challenge:* npm start
 ```
 
 ### Development
@@ -48,3 +59,4 @@ $ DEBUG=code_challenge:* gulp &&  npm start
 [node.js]:http://nodejs.org
 [express]:http://expressjs.com
 [Mongoose]:http://mongoosejs.com/docs/guide.html
+[swagger-ui]: https://github.com/swagger-api/swagger-ui

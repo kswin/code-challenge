@@ -21,6 +21,7 @@
     "/exercises": {
       "get": {
         "description": "Returns all exercises in the system.",
+        "operationId": "getExercises",
         "produces": ["application/json"],
         "tags": ["exercises"],
         "responses": {
@@ -31,6 +32,30 @@
               "items":  {
                 "$ref": "#/definitions/Exercise"
               }
+            }
+          }
+        }
+      }
+    },
+    "/exercises/{exerciseId}": {
+      "get": {
+        "description": "Returns an exercise based on id.",
+        "operationId": "getExerciseById",
+        "produces": ["application/json"],
+        "tags": ["exercises"],
+        "parameters": [
+          {
+            "name": "exerciseId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A single exercise.",
+            "schema": {
+              "$ref": "#/definitions/Exercise"
             }
           }
         }

@@ -43,11 +43,17 @@ $ DEBUG=code_challenge:* npm start
 - Add test instructions
 
 ### TODOs
-- SSL?
+- SSL? CORS?
 - Filters/Sorting
+    - Add Modified/Creation date ?
+    - Question type
+    - Pagination
 - Error Handlers
+    - Distractors 
+        - should not equal answer
+        - should not equal other distractors in the set
+    - Add error responses to swagger docs
 - JSHint
-- Swagger
 
 ### License 
 //TODO 

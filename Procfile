@@ -1,5 +1,2 @@
-#build
-web: node node_modules/gulp/bin/gulp
-
-#start app
-web: npm start
+#build app with local gulp and start app
+web: node node_modules/gulp/bin/gulp && npm start

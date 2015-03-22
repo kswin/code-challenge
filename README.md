@@ -11,6 +11,7 @@ Parse the data dump and make the data accessible in a structured, RESTful manner
 * [Express] - fast node.js network app framework 
 * [MongoDB] - document-oriented database 
 * [Mongoose] - provides MongoDB object mapping 
+* [Swagger UI] - REST API documentation
 
 ### Installation
 1. Install [MongoDB] and [node.js]
@@ -23,7 +24,7 @@ $ mongod
 $ git clone https://github.com/kswin/code-challenge.git code-challenge
 $ cd code-challenge
 $ npm install
-$ DEBUG=code_challenge:* npm start
+$ DEBUG=code_challenge:* gulp &&  npm start
 ```
 
 ### Development

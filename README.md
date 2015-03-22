@@ -16,7 +16,7 @@ Parse the data dump and make the data accessible in a structured, RESTful manner
 ### Installation
 1. Install [MongoDB] and [node.js]
 2. From a tab in your Terminal, start MongoDB in the background
-```
+```sh
 $ mongod
 ``` 
 3. From another tab in your Terminal, clone the git project

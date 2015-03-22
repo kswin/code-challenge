@@ -13,7 +13,7 @@
   ],
   "tags": [
     {
-      "name": "exercises",
+      "name": "exercise",
       "description": "Used to create skill-enhancing assessments."
     }
   ],
@@ -23,7 +23,7 @@
         "description": "Returns all exercises in the system.",
         "operationId": "getExercises",
         "produces": ["application/json"],
-        "tags": ["exercises"],
+        "tags": ["exercise"],
         "responses": {
           "200": {
             "description": "A list of exercises.",
@@ -35,6 +35,32 @@
             }
           }
         }
+      },
+      "post": {
+        "description": "Creates a new exercise.",
+        "operationId": "createExercise",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["exercise"],
+        "parameters": [
+          {
+            "name": "exercise",
+            "in": "body",
+            "description": "An exercise to be added to the system.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Exercise"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The newly created exercise.",
+            "schema": {
+              "$ref": "#/definitions/Exercise"
+            }
+          }
+        }
       }
     },
     "/exercises/{exerciseId}": {
@@ -42,7 +68,7 @@
         "description": "Returns an exercise based on id.",
         "operationId": "getExerciseById",
         "produces": ["application/json"],
-        "tags": ["exercises"],
+        "tags": ["exercise"],
         "parameters": [
           {
             "name": "exerciseId",
@@ -54,6 +80,59 @@
         "responses": {
           "200": {
             "description": "A single exercise.",
+            "schema": {
+              "$ref": "#/definitions/Exercise"
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Updates an exercise based on id. POST body only needs to contain the properties that need updating.",
+        "operationId": "updateExerciseById",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["exercise"],
+        "parameters": [
+          {
+            "name" : "exerciseId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "exercise",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Exercise"
+            } 
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Updated exercise.",
+            "schema": {
+              "$ref": "#/definitions/Exercise"
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Deletes an exercise based on id.",
+        "operationId": "deleteExerciseById",
+        "produces": ["application/json"],
+        "tags": ["exercise"],
+        "parameters": [
+          {
+            "name": "exerciseId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted exercise.",
             "schema": {
               "$ref": "#/definitions/Exercise"
             }

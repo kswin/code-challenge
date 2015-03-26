@@ -1,7 +1,7 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var debug = require('debug');
-var Exercise = require('../model/exercise');
+var Exercise = require('./model');
 
 var router = express.Router();
 

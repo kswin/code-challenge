@@ -35,7 +35,7 @@ gulp
 ```
 6. Start the app
 ```sh
-$ DEBUG=code_challenge:* npm start
+$ DEBUG=code-challenge:* npm start
 ```
 
 ### Development

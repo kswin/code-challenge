@@ -58,6 +58,9 @@ $ DEBUG=code_challenge:* npm start
 ### License 
 //TODO 
 
+
+### Nice to have
+- Decimal points in aswers and questions
 ----
 
 **Free Software, Hell Yeah!**

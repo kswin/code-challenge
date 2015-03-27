@@ -19,7 +19,8 @@ exports.validateAnswerColumn = function(answerString) {
 };
 
 exports.validateDistractorsColumn = function(distractorsString){
-    var distractorsPattern = /^(-?\d+(,|$))+$/g;
+    var distractorsPattern = /-?\d+\w(,|$)/g;
+
 
     return distractorsPattern.test(distractorsString);
 };

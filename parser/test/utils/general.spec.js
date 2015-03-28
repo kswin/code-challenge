@@ -34,28 +34,64 @@ describe('General Utility functions', function(){
     });
 
     describe('hasEmptyString', function(){
-        it('should return false false if array input does not have empty strings', function() {
-            expect(util.hasEmptyString([])).to.be.false;
-            expect(util.hasEmptyString(['hello world', 'some test'])).to.be.false;
-        });
-
-        it('should return true if array input has empty string', function() {
-            expect(util.hasEmptyString(['hello world', '', ''])).to.be.true;  
+        it('should throw error if input is not an array', function(){
+            expect(util.hasEmptyString.bind(null, {})).to.throw(TypeError);
         });
 
         it('should throw error if array has non-string values', function(){
             expect(util.hasEmptyString.bind(null, ['test', {}])).to.throw(TypeError);
         });
 
-        it('should throw error if input is not an array', function(){
-            expect(util.hasEmptyString.bind(null, {})).to.throw(TypeError);
+        it('should return false if input does not have empty strings', function() {
+            expect(util.hasEmptyString([])).to.be.false;
+            expect(util.hasEmptyString(['hello world', 'some test'])).to.be.false;
+        });
+
+        it('should return true if input has empty string', function() {
+            expect(util.hasEmptyString(['hello world', '', ''])).to.be.true;  
         });
     });
 
     describe('zipListsIntoJson', function(){
-        it('should throw error if kays has empty value');
-        it('sould return json if keys and values inputs are valid');
-        it('should return json with empty values if values is undefined'); //?
+        it('should throw error if keys is undefined or null', function(){
+            var keys = undefined,
+                values = ['val1', '', 'val2'];
+
+            expect(util.zipListsIntoJson.bind(null, keys, values)).to.throw(Error);
+
+            keys = null;
+
+            expect(util.zipListsIntoJson.bind(null, keys, values)).to.throw(Error);    
+        });
+
+        it('should throw error if values is undefined or null', function(){
+            var keys = ['key1', 'key2'],
+                values = undefined;
+
+            expect(util.zipListsIntoJson.bind(null, keys, values)).to.throw(Error);
+
+            values = null;
+
+            expect(util.zipListsIntoJson.bind(null, keys, values)).to.throw(Error);
+        });
+
+        it('should throw error if keys contains empty string', function(){
+            var keys = ['key1', '', 'key2'],
+                values = ['val1', '', 'val2'];
+
+            expect(util.zipListsIntoJson.bind(null, keys, values)).to.throw(Error);
+        });
+
+        it('should return json if inputs are valid', function(){
+            var keys = ['key1', 'key2'],
+                values = ['val1', 'val2'];
+
+            expect(util.zipListsIntoJson(keys, values))
+                .to.be.deep.equal({
+                    key1: 'val1',
+                    key2: 'val2'
+                });  
+        });
     });
 
     describe('hasFileExtension:', function(){

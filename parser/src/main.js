@@ -6,74 +6,26 @@ var fs = require('fs'),
     file = fs.createWriteStream('output.json'),
     http = require('http');
 
-exports.csvToJson = function(filename){
+exports.parseCSV = function(filename){
     var lineNumber = 0,
-        columnHeaders = [],
-        parseCsvLine,
-        createExercise;
+        columnHeaders,
+        transformCSVLineToJson,
+        exercises = [];
 
-    createExercise = function(exercise){
-        var exerciseString,
-            headers,
-            options;
-
-        exerciseString = JSON.stringify(exercise);
-
-        headers = {
-            'Content-Type': 'application/json',
-            'Content-Length': exerciseString.length
-        };
-
-        options = {
-          path: '/exercises',
-          port: process.env.PORT || '3000', //TODO duplicated in bin/www
-          method: 'POST',
-          headers: headers
-        };
-
-        var request = http.request(options, function(response){
-            response.setEncoding('utf-8');
-
-            var responseString = '';
-
-            response.on('data', function(data) {
-                responseString += data;
-            });
-
-            response.on('end', function() {
-                var resultObject = JSON.parse(responseString);
-                console.log('Posted: ' + resultObject);
-            });
-        });
-
-        request.on('error', function(e) {
-            // TODO: handle error.
-        });
-
-        request.write(exerciseString);
-        request.end();
-    };
+    transformCSVLineToJson = function (buffer, encoding, next) {
+        var columnValues,
+            sanitizedColumnValues,
+            exercise;
 
 
-    parseCsvLine = through(function(buffer, encoding, next){
-        var line = buffer.toString(),
-            columnValues = [];
+        columnValues = util.parseLine(buffer.toString());
 
-        if (!util.validatePipeOccurences(line)){
-            console.log('Invalid row: ' + line);
-            console.log('Skipping line: ' + lineNumber);
-        } else {
-            columnValues = line.split('|');
-
-            if(lineNumber === 0 && util.areHeaderColumnsValid(columnValues)) {
-                columnHeaders = columnValues;
-            } else if (lineNumber > 0 && util.areColumnsValid(columnValues)){
-                var exercise = util.zipListsIntoJson(columnHeaders, columnValues);
-                createExercise(exercise);
-            } else {
-                console.log('Invalid column values: ' + columnValues);
-                console.log('Skipping line: ' + lineNumber);
-            }
+        if(lineNumber === 0) {
+            columnHeaders = columnValues;
+        } else if (lineNumber > 0){
+            sanitizedColumnValues = util.sanitizeColumnValues(columnValues);
+            exercise = util.zipListsToJson(columnHeaders, sanitizedColumnValues);
+            exercises.push(exercise);
         }
 
         lineNumber++;
@@ -86,5 +38,6 @@ exports.csvToJson = function(filename){
 
     fs.createReadStream(filename)
         .pipe(split(util.trimTrailingCommas))
-        .pipe(parseCsvLine);
+        .pipe(through(transformCSVLineToJson));
 };
+

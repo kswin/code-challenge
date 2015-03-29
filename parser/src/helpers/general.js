@@ -3,18 +3,10 @@ exports.trimTrailingCommas = function(str) {
 };
 
 exports.isEmptyString = function(str) {
-    if(typeof str !== 'string') {
-        throw new TypeError('isEmptyString requires string input');
-    }
-
     return str === '';
 };
 
 exports.hasEmptyString = function (array) {
-    if(!(array instanceof Array)) {
-        throw new TypeError('hasEmptyString requires array input');
-    }
-
     for(var i = 0, length = array && array.length; i < length; i++) {
         if(exports.isEmptyString(array[i])) {
             return true;
@@ -23,12 +15,33 @@ exports.hasEmptyString = function (array) {
     return false;
 };
 
+exports.removeEmptyStringsFromArray = function (array) {
+    var result = [],
+        currentVal,
+        i,
+        length = array && array.length;
+
+    for(i = 0; i < length; i++){
+        currentVal = array[i];
+
+        if(!exports.isEmptyString(currentVal)) {
+            result.push(currentVal);
+        }
+    }
+
+    return result;
+};
+
 exports.zipListsIntoJson = function(keys, values) {
     var result = {},
         i,
         keysLength = keys.length;
 
-    if(exports.hasEmptyString(keys) && keysLength > 0) {
+    if(!(keys instanceof Array) || keysLength === 0) {
+        throw new TypeError('Keys must be an array of non-empty values');
+    }
+
+    if(exports.hasEmptyString(keys)) {
         throw new Error('Keys must not have empty strings: ' + keys);
     }
 

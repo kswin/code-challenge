@@ -53,6 +53,7 @@ $ DEBUG=code-challenge:* npm start
         - should not equal answer
         - should not equal other distractors in the set
     - Add error responses to swagger docs
+    - Trim trailing/leading spaces
 - JSHint
 
 ### License 

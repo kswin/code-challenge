@@ -1,5 +1,5 @@
 var expect = require('chai').expect;
-var util = require('../../src/utils/general');
+var util = require('../../src/helpers/general');
 
 describe('General Utility functions', function(){
     describe('trimTrailingCommas:', function(){
@@ -24,24 +24,9 @@ describe('General Utility functions', function(){
         it('should return false for non-empty strings', function() {
             expect(util.isEmptyString('hello world')).to.be.false;
         });
-
-        it('should throw an error for invalid inputs', function() {
-            expect(util.isEmptyString.bind(null, null)).to.throw(TypeError);
-            expect(util.isEmptyString.bind(null, undefined)).to.throw(TypeError);
-            expect(util.isEmptyString.bind(null, ['hello world'])).to.throw(TypeError);
-            expect(util.isEmptyString.bind(null, {})).to.throw(TypeError);
-        });
     });
 
     describe('hasEmptyString', function(){
-        it('should throw error if input is not an array', function(){
-            expect(util.hasEmptyString.bind(null, {})).to.throw(TypeError);
-        });
-
-        it('should throw error if array has non-string values', function(){
-            expect(util.hasEmptyString.bind(null, ['test', {}])).to.throw(TypeError);
-        });
-
         it('should return false if input does not have empty strings', function() {
             expect(util.hasEmptyString([])).to.be.false;
             expect(util.hasEmptyString(['hello world', 'some test'])).to.be.false;
@@ -52,27 +37,45 @@ describe('General Utility functions', function(){
         });
     });
 
+    describe('removeEmptyStringsFromArray', function(){
+        it('should return array without empty strings', function() {
+            expect(util.removeEmptyStringsFromArray([
+                'hello',
+                '',
+                'world',
+                '',
+                ''
+            ])).to.be.deep.equal([
+                'hello',
+                'world'
+            ]);
+        });
+    });
+
     describe('zipListsIntoJson', function(){
-        it('should throw error if keys is undefined or null', function(){
+        it('should throw error if keys is empty array, undefined or null', function(){
             var keys = undefined,
                 values = ['val1', '', 'val2'];
 
-            expect(util.zipListsIntoJson.bind(null, keys, values)).to.throw(Error);
+            expect(util.zipListsIntoJson.bind(null, keys, values)).to.throw(TypeError);
 
             keys = null;
 
-            expect(util.zipListsIntoJson.bind(null, keys, values)).to.throw(Error);    
+            expect(util.zipListsIntoJson.bind(null, keys, values)).to.throw(TypeError);    
+
+            keys = [];
+            expect(util.zipListsIntoJson.bind(null, keys, values)).to.throw(TypeError);
         });
 
         it('should throw error if values is undefined or null', function(){
             var keys = ['key1', 'key2'],
                 values = undefined;
 
-            expect(util.zipListsIntoJson.bind(null, keys, values)).to.throw(Error);
+            expect(util.zipListsIntoJson.bind(null, keys, values)).to.throw(TypeError);
 
             values = null;
 
-            expect(util.zipListsIntoJson.bind(null, keys, values)).to.throw(Error);
+            expect(util.zipListsIntoJson.bind(null, keys, values)).to.throw(TypeError);
         });
 
         it('should throw error if keys contains empty string', function(){

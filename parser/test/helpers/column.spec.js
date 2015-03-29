@@ -1,5 +1,5 @@
 var expect = require('chai').expect;
-var util = require('../../src/utils/column.js');
+var util = require('../../src/helpers/column');
 
 describe('Column Utility functions', function(){
     describe('isValidQuestionValue', function(){
@@ -60,34 +60,19 @@ describe('Column Utility functions', function(){
     });
 
     describe('isValidDistractorsValue', function(){
-        it('should return false for empty string or undefined', function(){
-            expect(util.isValidDistractorsValue('')).to.be.false;
+        it('should return false for empty array or undefined', function(){
+            expect(util.isValidDistractorsValue([])).to.be.false;
             expect(util.isValidDistractorsValue(undefined)).to.be.false;
         });
 
         it('should return true for integers delimited by commas', function(){
-            var validDistractorsString = '123,-134,12233';
-            expect(util.isValidDistractorsValue(validDistractorsString)).to.be.true; 
+            var validDistractors = ['123','-134','12233'];
+            expect(util.isValidDistractorsValue(validDistractors)).to.be.true; 
         });
 
         it('should return false for non-integers', function(){
-            var alphaNumeric = "b33f,l0v3,d34d";
+            var alphaNumeric = ['b33f','l0v3','d34d'];
             expect(util.isValidDistractorsValue(alphaNumeric)).to.be.false;
-        });
-
-        it('should return false for distractors with invalid delimiters', function(){
-            var delimitedByPipe = "b33f|l0v3|d34d";
-            expect(util.isValidDistractorsValue(delimitedByPipe)).to.be.false;
-
-            var delimitedByLodash = "b33f_l0v3_d34d";
-            expect(util.isValidDistractorsValue(delimitedByLodash)).to.be.false;
-
-            var commaLastOnly = "b33f_l0v3,d34d";
-            expect(util.isValidDistractorsValue(commaLastOnly)).to.be.false;
-
-            var commaFirstOnly = "b33f,l0v3_d34d";
-            expect(util.isValidDistractorsValue(commaFirstOnly)).to.be.false;
-
         });
     });
 });

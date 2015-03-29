@@ -31,4 +31,4 @@ node_modules
 public/api-docs/swagger-ui
 
 #CSV parser output
-parser/output.json
+parser/src/output.json

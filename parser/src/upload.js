@@ -1,51 +1,50 @@
 var fs = require('fs'),
-    through = require('through2'),
-    split = require('split'),
-    main = require('./main'),
-    exports = module.exports = {},
-    file = fs.createWriteStream('output.json'),
     http = require('http');
 
-    createExercise = function(exercise){
-        var exerciseString,
-            headers,
-            options;
+exports.createExercises = function(exercises){
+    var headers,
+        options;
 
-        exerciseString = JSON.stringify(exercise);
-
-        headers = {
-            'Content-Type': 'application/json',
-            'Content-Length': exerciseString.length
-        };
-
-        options = {
-          path: '/exercises',
-          port: process.env.PORT || '3000', //TODO duplicated in bin/www
-          method: 'POST',
-          headers: headers
-        };
-
-        var request = http.request(options, function(response){
-            response.setEncoding('utf-8');
-
-            var responseString = '';
-
-            response.on('data', function(data) {
-                responseString += data;
-            });
-
-            response.on('end', function() {
-                var resultObject = JSON.parse(responseString);
-                console.log('Posted: ' + resultObject);
-            });
-        });
-
-        request.on('error', function(e) {
-            // TODO: handle error.
-        });
-
-        request.write(exerciseString);
-        request.end();
+    headers = {
+        'Content-Type': 'application/json',
+        'Content-Length': exercises.length
     };
 
-main.parseCSV(process.argv[2]);
+    options = {
+      path: '/exercises',
+      port: process.env.PORT || '3000', //TODO duplicated in bin/www
+      method: 'POST',
+      headers: headers
+    };
+
+    var request = http.request(options, function(response){
+      response.setEncoding('utf-8');
+
+      var fullResponse = '';
+
+      response.on('data', function(data) {
+        fullResponse += data;
+      });
+
+      response.on('end', function(){
+        console.log(fullResponse);
+      });
+    });
+
+    request.on('error', function(e) {
+      console.log('[createExercises] error: ' + e);
+    });
+  
+    request.write(exercises);
+    request.end();
+};
+
+fs.readFile(process.argv[2], 'utf8', function (err, data) {
+  if (err) {
+    console.log('[readFile] error: ' + err);
+    return;
+  }
+
+  exports.createExercises(data);
+});
+

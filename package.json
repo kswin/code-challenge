@@ -13,7 +13,7 @@
     "del": "1.1.1",
     "express": "4.12.2",
     "gulp": "3.8.11",
-    "mongoose": "3.8.25",
+    "mongoose": "4.0.1",
     "split": "0.3.3",
     "swagger-ui": "2.1.8-M1",
     "through2": "0.6.3"

@@ -111,7 +111,32 @@ describe('General Utility functions', function(){
     });
 
     describe('isValidJsonString', function(){
-        it('should return true for json strings');
-        it('should return false for non-json strings');
+        it('should return true for json strings', function() {
+            var jsonString = JSON.stringify([{
+                "question": "What is 3009 * 5075?",
+                "answer": "15270675",
+                "distractors": [
+                    "3572",
+                    "9415"
+                ]
+            }, {
+                "question": "What is 6324 * 4040?",
+                "answer": "25548960",
+                "distractors": [
+                    "3952",
+                    "3906",
+                    "2694"
+                ]
+            }]);
+
+            expect(util.isValidJsonString(jsonString)).to.be.true;
+        });
+
+        it('should return false for non-json strings', function(){
+            expect(util.isValidJsonString(null), '1').to.be.false;
+            expect(util.isValidJsonString(undefined), '2').to.be.false;
+            expect(util.isValidJsonString(1234), '3').to.be.false;
+            expect(util.isValidJsonString({}), '4').to.be.false;
+        });
     });
 });

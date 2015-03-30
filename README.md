@@ -43,7 +43,6 @@ $ DEBUG=code-challenge:* npm start
 - Add test instructions
 
 ### TODOs
-- SSL? CORS?
 - Filters/Sorting
     - Add Modified/Creation date ?
     - Question type
@@ -59,12 +58,11 @@ $ DEBUG=code-challenge:* npm start
 ### License 
 //TODO 
 
-
 ### Nice to have
-- Decimal points in aswers and questions
+- Decimal points in answers and questions
+- SSL? CORS?
 ----
 
-**Free Software, Hell Yeah!**
 [MongoDB]:http://docs.mongodb.org/manual/
 [node.js]:http://nodejs.org
 [express]:http://expressjs.com

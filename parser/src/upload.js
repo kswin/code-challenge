@@ -1,14 +1,15 @@
 var fs = require('fs'),
-    http = require('http'),
-    generalHelpers = require('./helpers/general');
+  http = require('http'),
+  generalHelpers = require('./helpers/general'),
+  exerciseHelpers = require('./helpers/exercise');
 
-exports.createExercises = function(exercises){
+var createExercises = function(exercises) {
     var headers,
-        options;
+      options;
 
     headers = {
-        'Content-Type': 'application/json',
-        'Content-Length': exercises.length
+      'Content-Type': 'application/json',
+      'Content-Length': exercises.length
     };
 
     options = {
@@ -18,7 +19,7 @@ exports.createExercises = function(exercises){
       headers: headers
     };
 
-    var request = http.request(options, function(response){
+    var request = http.request(options, function(response) {
       response.setEncoding('utf-8');
 
       var fullResponse = '';
@@ -27,35 +28,34 @@ exports.createExercises = function(exercises){
         fullResponse += data;
       });
 
-      response.on('end', function(){
-        console.log(fullResponse);
+      response.on('end', function() {
+        console.log('[upload: createExercises] full response: ' + fullResponse);
       });
     });
 
     request.on('error', function(e) {
-      console.log('[createExercises] error: ' + e);
+      console.error('[upload: createExercises] error: ' + e);
     });
-  
+
     request.write(exercises);
     request.end();
-};
+  };;
 
 var fileToUpload = process.argv[2];
 
-if(!generalHelpers.hasFileExtension(fileName, 'json')){
-  throw new Error('Unexpected file extension: ' + fileName);
+if (!generalHelpers.hasFileExtension(fileToUpload, 'json')) {
+  throw new Error('Unexpected file extension: ' + fileToUpload);
 }
 
-fs.readFile(fileToUpload, 'utf8', function (err, data) {
+fs.readFile(fileToUpload, 'utf8', function(err, data) {
   if (err) {
-    console.log('[readFile] error: ' + err);
+    console.error('[upload: readFile] error: ' + err);
     return;
   }
 
-  if(!generalHelpers.isValidJson(data)) {
+  if (!generalHelpers.isValidJsonString(data)) {
     throw new Error('JSON parse error');
   }
 
-  exports.createExercises(data);
+  createExercises(data);
 });
-

@@ -58,11 +58,11 @@ exports.hasFileExtension = function(filename, extension){
     return extensionPattern.test(filename);
 };
 
-exports.isValidJsonString = function(string) {
+exports.isValidJsonString = function(jsonStr) {
     try {
-        JSON.parse(str);
+        JSON.parse(jsonStr);
     } catch (e) {
         return false;
     }
-    return true;
+    return true && (typeof jsonStr === 'string');
 };

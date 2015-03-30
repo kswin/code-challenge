@@ -38,6 +38,7 @@ $ npm test
 - Filters/Sorting
     - Add Modified/Creation date ?
     - Question type
+    - Question difficulty based on distractors length
     - Pagination
 - Error Handlers
     - Distractors 

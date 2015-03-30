@@ -1,6 +1,6 @@
 var express = require('express');
 var mongoose = require('mongoose');
-var debug = require('debug')('code-challenge:server');
+var debug = require('debug')('code-challenge:routes');
 var Exercise = require('./model');
 
 var router = express.Router();

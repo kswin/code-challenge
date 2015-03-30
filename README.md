@@ -14,32 +14,25 @@ Parse the data dump and make the data accessible in a structured, RESTful manner
 * [swagger-ui] - REST API documentation
 
 ### Installation
-- Install [MongoDB] and [node.js]
-- From a tab in your Terminal, start MongoDB in the background
+1. Install [MongoDB] and [node.js]
+2. From a tab in your Terminal, start MongoDB in the background
 ```sh
 $ mongod
 ``` 
-- From another tab in your Terminal, clone the git project
-```sh
+3. From another tab in your Terminal, start the app
+```
 $ git clone https://github.com/kswin/code-challenge.git code-challenge
-```
-- Install dependencies
-```sh
 $ cd code-challenge
-$ npm install -g gulp //globally install gulp for easier development
-$ npm install
-```
-- Build the app
-```sh
-gulp
-```
-- Start the app
-```sh
+$ npm install -g gulp && npm install //get dependencies. installs gulp globally for easier development
+$ npm build
 $ DEBUG=code-challenge:* npm start
 ```
 
 ### Development
-- TODO - add test instructions
+1. Run unit tests
+```
+$ npm test
+```
 
 ### TODOs
 - Filters/Sorting
@@ -53,10 +46,13 @@ $ DEBUG=code-challenge:* npm start
     - Add error responses to swagger docs
     - Trim trailing/leading spaces
 
+### License 
+//TODO 
+
 ### Nice to have
 - Decimal points in answers and questions
 - SSL? CORS?
-- JSHint/JSCS
+- JSHint
 
 
 ----

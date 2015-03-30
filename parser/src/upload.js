@@ -1,5 +1,6 @@
 var fs = require('fs'),
-    http = require('http');
+    http = require('http'),
+    generalHelpers = require('./helpers/general');
 
 exports.createExercises = function(exercises){
     var headers,
@@ -39,10 +40,20 @@ exports.createExercises = function(exercises){
     request.end();
 };
 
-fs.readFile(process.argv[2], 'utf8', function (err, data) {
+var fileToUpload = process.argv[2];
+
+if(!generalHelpers.hasFileExtension(fileName, 'json')){
+  throw new Error('Unexpected file extension: ' + fileName);
+}
+
+fs.readFile(fileToUpload, 'utf8', function (err, data) {
   if (err) {
     console.log('[readFile] error: ' + err);
     return;
+  }
+
+  if(!generalHelpers.isValidJson(data)) {
+    throw new Error('JSON parse error');
   }
 
   exports.createExercises(data);

@@ -1,0 +1,27 @@
+[
+    {
+        "question": "What is 3009 * 5075?",
+        "answer": "15270675",
+        "distractors": [
+            "3572",
+            "9415"
+        ]
+    },
+    {
+        "question": "What is 6324 * 4040?",
+        "answer": "25548960",
+        "distractors": [
+            "3952",
+            "3906",
+            "2694"
+        ]
+    },
+    {
+        "question": "What is 7269 * 2771?",
+        "answer": "20142399",
+        "distractors": [
+            "874",
+            "123"
+        ]
+    }
+]

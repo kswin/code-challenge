@@ -57,3 +57,12 @@ exports.hasFileExtension = function(filename, extension){
 
     return extensionPattern.test(filename);
 };
+
+exports.isValidJsonString = function(string) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+};

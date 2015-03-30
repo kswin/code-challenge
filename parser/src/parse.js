@@ -5,7 +5,7 @@ var fs = require('fs'),
     exerciseHelpers = require('./helpers/exercise'),
     generalHelpers = require('./helpers/general');
 
-exports.parseCSV = function(fileName, fileDestination){
+exports.parseCSV = function(fileSource, fileDestination){
     var lineNumber = 0,
         headers,
         transformCSVLineToJson,
@@ -37,18 +37,18 @@ exports.parseCSV = function(fileName, fileDestination){
         next();
     };
 
-    if(!generalHelpers.hasFileExtension(fileName, 'csv')){
-        throw new Error('Unexpected file extension: ' + fileName);
+    if(!generalHelpers.hasFileExtension(fileSource, 'csv')){
+        throw new Error('Unexpected file extension: ' + fileSource);
     }
 
-    return fs.createReadStream(fileName)
+    return fs.createReadStream(fileSource)
         .pipe(split(generalHelpers.trimTrailingCommas))
         .pipe(through.obj(transformCSVLineToJson))
         .on('data', function(data) {
             exercises.push(data);
         })
         .on('end', function(){
-            return fs.writeFile(__dirname + '/' + (fileDestination || 'output.json'), JSON.stringify(exercises, null, 4), "utf8");
+            return fs.writeFile(fileDestination || 'output.json', JSON.stringify(exercises, null, 4), "utf8");
         });
 };
 

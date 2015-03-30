@@ -109,4 +109,9 @@ describe('General Utility functions', function(){
             expect(util.hasFileExtension('my-filename.csv.csvtxt', 'csv')).to.be.false;
         });
     });
+
+    describe('isValidJsonString', function(){
+        it('should return true for json strings');
+        it('should return false for non-json strings');
+    });
 });

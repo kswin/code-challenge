@@ -30,6 +30,11 @@ describe('Column Utility functions', function(){
             expect(util.isValidQuestionValue(unexpectedOperands)).to.be.false;
         });
 
+        it('should return false if question uses unexpected number of operands', function(){
+            var unexpectedOperands = 'What is aa ++ bb?';
+            expect(util.isValidQuestionValue(unexpectedOperands)).to.be.false;
+        });
+
         it('should return false if question does not use "What is ...?" format', function(){
             var unexpectedQuestionFormat = 'Compute 12 + 14.';
             expect(util.isValidQuestionValue(unexpectedQuestionFormat)).to.be.false;

@@ -1,19 +1,5 @@
 var debug = require('debug')('code-challenge:model');
 
-exports.getDifficulty = function(distractors) {
-    if (distractors.length >= 4) {
-        return 'hard';
-    }
-
-    if (distractors.length >= 2) {
-        return 'medium';
-    }
-
-    if (distractors.length >= 1) {
-        return 'easy';
-    };
-};
-
 exports.validateDistractors = function (distractors, answer) {
     var i,
         distractorsLength = distractors && distractors.length;

@@ -37,7 +37,7 @@
         }
       },
       "post": {
-        "description": "Creates a new exercise(s).",
+        "description": "Creates a new exercise(s). 'created', 'modified' and 'difficulty' fields are read-only. Difficulty is based on distractors length.",
         "operationId": "createExercise",
         "consumes": ["application/json"],
         "produces": ["application/json"],
@@ -87,7 +87,7 @@
         }
       },
       "put": {
-        "description": "Updates an exercise based on id. POST body only needs to contain the properties that need updating.",
+        "description": "Updates an exercise based on id. 'created', 'modified' and 'difficulty' fields are read-only. Difficulty is based on distractors length. If a property is omitted from the body, it won't be updated.",
         "operationId": "updateExerciseById",
         "consumes": ["application/json"],
         "produces": ["application/json"],
@@ -157,13 +157,28 @@
         },
         "question": {
           "type": "string"
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "difficulty": {
+          "type": "string"
+        },
+        "modified": {
+          "type": "date"
+        },
+        "created": {
+          "type": "date"
         }
       }
     }
   },
   "responses": {
     "NotFound": {
-      "description": "Entity not found"
+      "description": "Exercise not found"
     }
   }
 }

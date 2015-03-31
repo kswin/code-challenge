@@ -1,6 +1,7 @@
 var mongoose = require('mongoose'),
     debug = require('debug')('code-challenge:model'),
-    helpers = require('./helpers');
+    helpers = require('./middleware/helpers'),
+    validators = require('./middleware/validators');
 
 var ExerciseSchema = new mongoose.Schema({
     question: {
@@ -30,7 +31,8 @@ var ExerciseSchema = new mongoose.Schema({
     },
     keywords: [{
         type: 'String',
-        trim: true
+        trim: true,
+        lowercase: true
     }]
 });
 
@@ -42,7 +44,7 @@ ExerciseSchema.pre('save', function(next) {
     exercise.difficulty = helpers.getDifficulty(exercise.distractors);
 
     try {
-        helpers.validateDistractors(exercise.distractors, exercise.answer);
+        validators.validateDistractors(exercise.distractors, exercise.answer);
     } catch (e) {
         next(e);
     }

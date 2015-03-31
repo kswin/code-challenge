@@ -37,13 +37,18 @@ $ npm test
 ### TODOs
 - Filters/Sorting
     - filter by Create/Modified date?
-    - Question type
+    - Question keywords
     - Question difficulty based on distractors length
     - Pagination
+    - update swagger docs with new fields
 
 =================
 - Error Handlers
     - Add error responses to swagger docs
+    - not found 404
+    - bad request 400
+    - generic 500
+    - Limit the distractors length
     - Unit test validation
 
 =================

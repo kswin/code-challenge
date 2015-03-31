@@ -23,6 +23,21 @@
         "description": "Returns all exercises in the system.",
         "operationId": "getExercises",
         "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "keywords",
+            "in": "query",
+            "description": "keyword associated with exercises",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "allowEmptyValue": false,
+            "collectionFormat": "multi",
+            "allowMultiple": true
+          }
+        ],
         "tags": ["exercise"],
         "responses": {
           "200": {

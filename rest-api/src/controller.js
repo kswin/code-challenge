@@ -1,7 +1,11 @@
-var Exercise = require('./model');
+var Exercise = require('./model'),
+    debug = require('debug')('code-challenge:controller');
 
 exports.getExercises = function(req, res, next) {
-    var callback = function(err, exercises) {
+    var callback, 
+        criteria;
+
+    callback = function(err, exercises) {
         if (err) {
             console.log(err);
             return next(err);
@@ -9,7 +13,39 @@ exports.getExercises = function(req, res, next) {
         res.json(exercises);
     };
 
-    Exercise.find(callback);
+    if(req.query) {
+        criteria = {};
+    }
+
+    if(req.query.keywords) {
+        criteria.keywords = Array.isArray(req.query.keywords) 
+            ? { $in: req.query.keywords}
+            : req.query.keywords
+    }
+
+    if(req.query.difficulty) {
+        if(req.query.difficulty !== 'easy' && 
+            req.query.difficulty !== 'medium' && 
+            req.query.difficulty !== 'hard') {
+            next(new Error('Invalid value for difficulty param'));
+        }
+
+        criteria.difficulty = req.query.difficulty;
+    }
+
+    var query = Exercise.find(criteria, callback);
+
+    if(req.query.sortBy) {
+        //TODO modified date?
+        if(req.query.sortBy !== 'oldest' &&
+            req.query.sortBy !== 'newest') {
+            next(new Error('Invalid value for created param'));
+        }
+
+        query.sort({
+            created: req.query.sortBy === 'oldest' ? 'asc' : 'desc'
+        });
+    }
 };
 
 exports.getExerciseById = function(req, res, next) {
@@ -30,6 +66,7 @@ exports.createExercise = function(req, res, next) {
         }
         res.json(createdExercise);
     };
+    debug('create ' + req.body);
 
     Exercise.create(req.body, callback);
 };

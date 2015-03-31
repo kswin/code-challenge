@@ -36,23 +36,25 @@ $ npm test
 
 ### TODOs
 - Filters/Sorting
-    - filter by Create/Modified date?
-    - Question keywords
-    - Question difficulty based on distractors length
+    - filter by Modified date?
     - Pagination
-    - update swagger docs with new fields
+    - update swagger docs with new params for GETs
 
 =================
 - Error Handlers
     - Add error responses to swagger docs
     - not found 404
-    - bad request 400
+    - bad request 400 (e.g. invalid params)
     - generic 500
     - Limit the distractors length
     - Unit test validation
 
 =================
+    - Unit test for filters/error setup?
+=================
+
 - Create instructions on how to use the REST API and parser
+- Swagger UI has a bug with multi params https://github.com/swagger-api/swagger-ui/issues/987
 - Create a front end for the parser
 
 ### Nice to have

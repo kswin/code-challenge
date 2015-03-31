@@ -52,6 +52,8 @@ ExerciseSchema.pre('save', function(next) {
     next();
 });
 
+ExerciseSchema.index({keywords: 1});
+
 var Exercise = mongoose.model('Exercise', ExerciseSchema);
 
 module.exports = Exercise;

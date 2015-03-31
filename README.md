@@ -36,21 +36,24 @@ $ npm test
 
 ### TODOs
 - Filters/Sorting
-    - Add Modified/Creation date ?
+    - filter by Create/Modified date?
     - Question type
     - Question difficulty based on distractors length
     - Pagination
+
+=================
 - Error Handlers
     - Add error responses to swagger docs
+    - Unit test validation
 
-### License 
-//TODO 
+=================
+- Create instructions on how to use the REST API and parser
+- Create a front end for the parser
 
 ### Nice to have
 - Decimal points in answers and questions
-- SSL? CORS?
+- SSL? CORS? OAuth?
 - JSHint
-
 
 ----
 

@@ -1,7 +1,7 @@
 var expect = require('chai').expect;
-var util = require('../../src/helpers/exercise');
+var exerciseHelpers = require('../../src/helpers/exercise');
 
-describe('Exercise Utility functions', function(){
+describe('[Parser] Exercise helper functions', function(){
     describe('sanitizeExercise', function() {
         it('should sanitize question property into string', function(){
             var exercise = {
@@ -10,7 +10,7 @@ describe('Exercise Utility functions', function(){
                 distractors: '3176,6529,6903'
             };
 
-            var sanitizedExercise = util.sanitizeExercise(exercise);
+            var sanitizedExercise = exerciseHelpers.sanitizeExercise(exercise);
 
             expect(sanitizedExercise.question).to.be.equal('1234');
         });
@@ -22,7 +22,7 @@ describe('Exercise Utility functions', function(){
                 distractors: '3176,6529,6903'
             };
 
-            var sanitizedExercise = util.sanitizeExercise(exercise);
+            var sanitizedExercise = exerciseHelpers.sanitizeExercise(exercise);
 
             expect(sanitizedExercise.answer).to.be.equal('-2182');
         });
@@ -34,12 +34,12 @@ describe('Exercise Utility functions', function(){
                 distractors: '3176,6529,6903'
             };
 
-            var sanitizedExercise = util.sanitizeExercise(exercise);
+            var sanitizedExercise = exerciseHelpers.sanitizeExercise(exercise);
 
             expect(sanitizedExercise.distractors).to.be.deep.equal(['3176','6529','6903']);
 
             exercise.distractors = '3176,,6903';
-            sanitizedExercise = util.sanitizeExercise(exercise);
+            sanitizedExercise = exerciseHelpers.sanitizeExercise(exercise);
 
             expect(sanitizedExercise.distractors).to.be.deep.equal(['3176','6903']);
         });
@@ -51,7 +51,7 @@ describe('Exercise Utility functions', function(){
                 distractors: ['3176','6529','6903']
             };
 
-            var sanitizedExercise = util.sanitizeExercise(exercise);
+            var sanitizedExercise = exerciseHelpers.sanitizeExercise(exercise);
 
             expect(sanitizedExercise).to.be.deep.equal({
                 question: 'What is 1754 - 3936?',
@@ -69,7 +69,7 @@ describe('Exercise Utility functions', function(){
                 distractors: '3176,6529,6903'
             };
 
-            expect(util.isValidExercise(exercise)).to.be.false;
+            expect(exerciseHelpers.isValidExercise(exercise)).to.be.false;
         });
 
         it('should return false for invalid answer value', function() {
@@ -79,7 +79,7 @@ describe('Exercise Utility functions', function(){
                 distractors: '3176,6529,6903'
             };
 
-            expect(util.isValidExercise(exercise)).to.be.false;
+            expect(exerciseHelpers.isValidExercise(exercise)).to.be.false;
         });
 
         it('should return false for invalid distractors value', function() {
@@ -89,20 +89,20 @@ describe('Exercise Utility functions', function(){
                 distractors: '3176,6529,6903'
             };
 
-            expect(util.isValidExercise(exercise)).to.be.false;
+            expect(exerciseHelpers.isValidExercise(exercise)).to.be.false;
 
             exercise.distractors = '3176,6529,6903,,,';
-            expect(util.isValidExercise(exercise)).to.be.false;
+            expect(exerciseHelpers.isValidExercise(exercise)).to.be.false;
 
 
             exercise.distractors = 'b33f|l0v3|d34d';
-            expect(util.isValidExercise(exercise)).to.be.false;
+            expect(exerciseHelpers.isValidExercise(exercise)).to.be.false;
 
             exercise.distractors = ['b33f','l0v3','d34d'];
-            expect(util.isValidExercise(exercise)).to.be.false;
+            expect(exerciseHelpers.isValidExercise(exercise)).to.be.false;
 
             exercise.distractors = [3176,6529,6903];
-            expect(util.isValidExercise(exercise)).to.be.false;
+            expect(exerciseHelpers.isValidExercise(exercise)).to.be.false;
         });
 
         it('should return true for exercises with valid question, answer and distractors value', function() {
@@ -112,7 +112,7 @@ describe('Exercise Utility functions', function(){
                 distractors: ['3176','6529','6903']
             };
 
-            expect(util.isValidExercise(exercise)).to.be.true;
+            expect(exerciseHelpers.isValidExercise(exercise)).to.be.true;
         });
     });
 });

@@ -14,7 +14,7 @@ var createExercises = function(exercises) {
 
     options = {
       path: '/exercises',
-      port: process.env.PORT || '3000', //TODO duplicated in bin/www
+      port: process.env.PORT || '3000', //TODO duplicated in bin/www. put it in a config file
       method: 'POST',
       headers: headers
     };

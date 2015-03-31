@@ -1,5 +1,6 @@
 var mongoose = require('mongoose'),
-    debug = require('debug')('code-challenge:model');
+    debug = require('debug')('code-challenge:model'),
+    helpers = require('./helpers');
 
 var ExerciseSchema = new mongoose.Schema({
     question: {
@@ -16,26 +17,34 @@ var ExerciseSchema = new mongoose.Schema({
         type: 'String',
         required: true,
         trim: true
+    }],
+    created: {
+        type: Date,
+        default: Date.now
+    },
+    modified: {
+        type: Date
+    },
+    difficulty: {
+        type: 'String'
+    },
+    keywords: [{
+        type: 'String',
+        trim: true
     }]
 });
 
 ExerciseSchema.pre('save', function(next) {
-    var self = this;
+    var exercise = this;
 
-    self.distractors.sort();
+    exercise.modified = new Date();
 
-    for(var i = 0, length = self.distractors && self.distractors.length; i < length; i++) {
-        debug('Save: current distractor: ' + self.distractors[i] + ' answer: ' + self.answer);
+    exercise.difficulty = helpers.getDifficulty(exercise.distractors);
 
-        if(self.distractors[i] === self.answer) {
-            debug('distractor matches answer!');
-
-            next(new Error('Distractor should not match answer'));
-        }
-
-        if(self.distractors[i] === self.distractors[i+1]){
-            next(new Error('Discractors list should not have duplicate values'));
-        }
+    try {
+        helpers.validateDistractors(exercise.distractors, exercise.answer);
+    } catch (e) {
+        next(e);
     }
 
     next();

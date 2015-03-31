@@ -6,8 +6,10 @@ var Exercise = require('./model');
 var router = express.Router();
 
 router.get('/exercises', function(req, res, next) {
+    //404
     var callback = function (err, exercises) {
         if (err) {
+            console.log(err);
             return next(err);
         }
         res.json(exercises);
@@ -17,6 +19,7 @@ router.get('/exercises', function(req, res, next) {
 });
 
 router.get('/exercises/:id', function(req, res, next) {
+    //404
     var callback = function (err, exercise) {
         if (err) {
             return next(err);
@@ -28,6 +31,7 @@ router.get('/exercises/:id', function(req, res, next) {
 });
 
 router.post('/exercises', function(req, res, next) {
+    //pre save
     var callback = function (err, createdExercise) {
         if (err) {
             return next(err);
@@ -39,6 +43,7 @@ router.post('/exercises', function(req, res, next) {
 });
 
 router.put('/exercises/:id', function(req, res, next) {
+    //pre save
     var callback = function(err, updatedExercise) {
         if (err) {
             return next(err);
@@ -50,6 +55,7 @@ router.put('/exercises/:id', function(req, res, next) {
 });
 
 router.delete('/exercises/:id', function(req, res, next) {
+    //404
     var callback = function(err, deletedExercise) {
         if(err) {
             return next(err);

@@ -41,11 +41,7 @@ $ npm test
     - Question difficulty based on distractors length
     - Pagination
 - Error Handlers
-    - Distractors 
-        - should not equal answer
-        - should not equal other distractors in the set
     - Add error responses to swagger docs
-    - Trim trailing/leading spaces
 
 ### License 
 //TODO 

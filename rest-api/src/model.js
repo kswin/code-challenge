@@ -4,21 +4,25 @@ var mongoose = require('mongoose'),
 var ExerciseSchema = new mongoose.Schema({
     question: {
         type: 'String',
-        required: true
+        required: true,
+        trim: true
     },
     answer: {
         type: 'String',
-        required: true
+        required: true,
+        trim: true
     },
-    distractors: {
-        type: ['String'],
-        required: true
-    }
+    distractors: [{
+        type: 'String',
+        required: true,
+        trim: true
+    }]
 });
 
 ExerciseSchema.pre('save', function(next) {
     var self = this;
 
+    self.distractors.sort();
 
     for(var i = 0, length = self.distractors && self.distractors.length; i < length; i++) {
         debug('Save: current distractor: ' + self.distractors[i] + ' answer: ' + self.answer);
@@ -27,6 +31,10 @@ ExerciseSchema.pre('save', function(next) {
             debug('distractor matches answer!');
 
             next(new Error('Distractor should not match answer'));
+        }
+
+        if(self.distractors[i] === self.distractors[i+1]){
+            next(new Error('Discractors list should not have duplicate values'));
         }
     }
 

@@ -37,11 +37,11 @@ exports.isValidSortKeyList = function(sortKeys) {
 };
 
 exports.buildCriteria = function(requestQuery) {
-    if(!requestQueryObj) {
+    var criteria = {};
+
+    if(!requestQuery) {
         return null;
     }
-
-    var criteria = {};
 
     if(requestQuery.keywords) {
         criteria.keywords = Array.isArray(requestQuery.keywords) 
@@ -51,19 +51,30 @@ exports.buildCriteria = function(requestQuery) {
 
     if(requestQuery.difficulty) {
         if(!exports.isValidDifficultyValue(requestQuery.difficulty)) {
-            next(new Error('Invalid value for difficulty param'));
+            throw new Error('[Invalid Query Value] Difficulty must match "easy", "medium" or "hard".');
         }
 
-        criteria.difficulty = requestQuery.difficulty;
+        criteria.difficulty = { $eq: requestQuery.difficulty };
     }
+
+    if(exports.isObjectEmpty(criteria)) {
+        return null;
+    }
+
+    return criteria;
 };
 
 exports.buildSortString = function(requestQuery) {
-    var sortKeys = requestQueryObj.sort.split(',');
+    var sortKeys = requestQuery.sort.split(',');
 
-    if(exports.isValidSortKeyList(sortKeys)) {
-       return sortKeys.join(' ');
+    if(!exports.isValidSortKeyList(sortKeys)) {
+        throw new Error('[Invalid Query Value] Sort keys must match "modified", "created" or "difficulty" with optional "-" in front to note descending order.');
     }
 
-    return null;
+   return sortKeys.join(' ');
+};
+
+exports.isObjectEmpty = function(json) {
+    //may not work in ie8-9
+    return Object.keys(json).length === 0;
 };

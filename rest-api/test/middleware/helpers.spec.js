@@ -64,27 +64,91 @@ describe('[Rest Api] Exercise Helpers', function(){
 
     describe('buildCriteria', function(){
         it('should return null for empty input', function(){
-            //[]
-            //{} ? should this be valid
-            //null
-            //0
-            //undefined
+            expect(helpers.buildCriteria([])).to.be.null;
+            expect(helpers.buildCriteria(undefined)).to.be.null;
+            expect(helpers.buildCriteria(null)).to.be.null;
+            expect(helpers.buildCriteria({})).to.be.null;
+            expect(helpers.buildCriteria(0)).to.be.null;
         });
 
         describe('keywords', function(){
-            it('should match any values specified in the given keywords array');
-            it('should match values equal to the given keyword');
+            it('should match any values specified in the given keywords array', function(){
+                var requestQuery = {
+                    keywords: ['math', 'addition']
+                };
+
+                expect(helpers.buildCriteria(requestQuery)).to.be.deep.equal({
+                    keywords: {$in: ['math', 'addition']}
+                });
+            });
+
+            it('should match values equal to the given keyword', function(){
+                var requestQuery = {
+                    keywords: 'multiplication'
+                };
+
+                expect(helpers.buildCriteria(requestQuery)).to.be.deep.equal({
+                    keywords: {$eq: 'multiplication'}
+                });
+            });
         });
 
         describe('difficulty', function(){
-            it('should return null for invalid difficulty values');
-            it('should match values equal to the given difficulty');
+            it('should throw error for invalid difficulty values', function(){
+                var requestQuery = {
+                    difficulty: 'diabolical'
+                };
+
+                expect(helpers.buildCriteria.bind(null, requestQuery))
+                    .to.throw(/[Invalid Query Value]/);
+            });
+
+            it('should match values equal to the given difficulty', function(){
+                var requestQuery = {
+                    difficulty: 'medium'
+                };
+
+                expect(helpers.buildCriteria(requestQuery)).to.be.deep.equal({
+                    difficulty: { $eq: 'medium' }
+                });
+            });
+        });
+
+        it('should build multi-key criteria', function(){
+            var requestQuery = {
+                difficulty: 'medium',
+                keywords: 'addition'            
+            };
+
+            expect(helpers.buildCriteria(requestQuery)).to.be.deep.equal({
+                difficulty: { $eq: 'medium' },
+                keywords: { $eq: 'addition' }
+            });
         });
     });
 
     describe('buildSortString', function(){
-        it('should return null for inputs that contain invalid sort keys');
-        it('should return string delimited by spaces');
-        it('should return string made of valid sort keys');
+        it('should throw error for invalid sort keys', function(){
+            var requestQuery = {
+                sort: '-hi,created'        
+            };
+
+            expect(helpers.buildSortString.bind(null,requestQuery))
+                .to.throw(/[Invalid Query Value]/);
+        });
+
+        it('should return string with valid keys delimited by spaces', function(){
+            var requestQuery = {
+                sort: 'created,-difficulty'        
+            };
+
+            expect(helpers.buildSortString(requestQuery)).to.be.equal('created -difficulty');
+        });
+    });
+
+    describe('isObjectEmpty', function(){
+        it('should return true for empty objects', function(){
+            expect(helpers.isObjectEmpty({})).to.be.true;
+        });
     });
 });

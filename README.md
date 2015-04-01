@@ -35,10 +35,8 @@ $ npm test
 ```
 
 ### TODOs
-- Filters/Sorting
-    - filter by Modified date?
-    - Pagination
-    - update swagger docs with new params for GETs
+- Pagination
+    - Improve .skip perf
 
 =================
 - Error Handlers
@@ -53,15 +51,19 @@ $ npm test
     - Unit test for filters/error setup?
 =================
 
-- Create instructions on how to use the REST API and parser
-- Swagger UI has a bug with multi params https://github.com/swagger-api/swagger-ui/issues/987
-- Create a front end for the parser
+- Add Accept Headers?
+- update swagger docs with new params for GETs
+- Create instructions on how to use the REST API and parser (Swagger UI has a bug with multi params https://github.com/swagger-api/swagger-ui/issues/987)
 
-### Nice to have
-- Decimal points in answers and questions
-- SSL? CORS? OAuth?
-- JSHint
 
+### Nice to haves
+- [Parser]: Add decimals support
+- [Security]: SSL? CORS? OAuth?
+- [Contributing]: JSHint
+- [Query]: param to return only specific fields
+- [Parser]: Create a front end for the parser
+- [Query]: Add "X-Total-Count" in response header for item total 
+- [Query]: Add "Link" for next/previous pages in response header
 ----
 
 [MongoDB]:http://docs.mongodb.org/manual/

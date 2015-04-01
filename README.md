@@ -35,35 +35,30 @@ $ npm test
 ```
 
 ### TODOs
-- Pagination
-    - Improve .skip perf
-
 =================
 - Error Handlers
-    - Add error responses to swagger docs
     - not found 404
     - bad request 400 (e.g. invalid params)
     - generic 500
     - Limit the distractors length
     - Unit test validation
-
 =================
     - Unit test for filters/error setup?
 =================
-
 - Add Accept Headers?
-- update swagger docs with new params for GETs
+- update swagger docs with new params for GETs/errors
 - Create instructions on how to use the REST API and parser (Swagger UI has a bug with multi params https://github.com/swagger-api/swagger-ui/issues/987)
 
-
-### Nice to haves
+#### Nice to haves
 - [Parser]: Add decimals support
 - [Security]: SSL? CORS? OAuth?
-- [Contributing]: JSHint
+- [Development]: JSHint
 - [Query]: param to return only specific fields
 - [Parser]: Create a front end for the parser
 - [Query]: Add "X-Total-Count" in response header for item total 
 - [Query]: Add "Link" for next/previous pages in response header
+- [Rest Api]: Change baseurl to use api/v1
+- [Query]: [Pagination optimization to avoid using .skip():https://sammaye.wordpress.com/2012/05/25/mongodb-paging-using-ranged-queries-avoiding-skip/]
 ----
 
 [MongoDB]:http://docs.mongodb.org/manual/

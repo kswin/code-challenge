@@ -21,6 +21,10 @@ exports.getExercises = function(req, res, next) {
             sortString = helpers.buildSortString(req.query);
             query.sort(sortString);
         }
+
+        query.skip(helpers.getOffset(req.query))
+            .limit(helpers.getLimit(req.query));
+
     } catch (e) {
         next(e);
     }

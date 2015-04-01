@@ -151,4 +151,88 @@ describe('[Rest Api] Exercise Helpers', function(){
             expect(helpers.isObjectEmpty({})).to.be.true;
         });
     });
+
+    describe('parseInt', function(){
+        it('should return number for string integer inputs', function(){
+            expect(helpers.parseInt('12345')).to.be.equal(12345);
+            expect(helpers.parseInt('-12345')).to.be.equal(-12345);
+            expect(helpers.parseInt(1234)).to.be.equal(1234);
+            expect(helpers.parseInt('Infinity')).to.be.equal(Infinity);
+        });
+
+        it('should return NaN for invalid inputs', function(){
+            expect(isNaN(helpers.parseInt(NaN))).to.be.true;
+            expect(isNaN(helpers.parseInt('hello'))).to.be.true;
+            expect(isNaN(helpers.parseInt(undefined))).to.be.true;
+            expect(isNaN(helpers.parseInt({}))).to.be.true;
+        })
+    });
+
+    describe('getOffset', function(){
+        it('should default to 0 for invalid inputs', function(){
+            var requestQuery = {
+                offset: NaN
+            };
+
+            expect(helpers.getOffset(requestQuery)).to.be.equal(0);
+
+            requestQuery.offset = Infinity;
+
+            expect(helpers.getOffset(requestQuery)).to.be.equal(0);
+
+            requestQuery.offset = 'hello';
+
+            expect(helpers.getOffset(requestQuery)).to.be.equal(0);
+        });
+
+        it('should return number for strings that represent finite integers', function() {
+            var requestQuery = {
+                offset: '12'
+            };
+
+            expect(helpers.getOffset(requestQuery)).to.be.equal(12);
+
+            requestQuery.offset = '-12';
+
+            expect(helpers.getOffset(requestQuery)).to.be.equal(-12);
+
+            requestQuery.offset = '0';
+
+            expect(helpers.getOffset(requestQuery)).to.be.equal(0);
+        });
+    });
+
+    describe('getLimit', function(){
+        it('should default to 20 for invalid inputs', function(){
+            var requestQuery = {
+                limit: NaN
+            };
+
+            expect(helpers.getLimit(requestQuery)).to.be.equal(20);
+
+            requestQuery.limit = Infinity;
+
+            expect(helpers.getLimit(requestQuery)).to.be.equal(20);
+
+            requestQuery.limit = 'hello';
+
+            expect(helpers.getLimit(requestQuery)).to.be.equal(20);
+        });
+
+        it('should return number for strings that represent finite integers', function() {
+            var requestQuery = {
+                limit: '12'
+            };
+
+            expect(helpers.getLimit(requestQuery)).to.be.equal(12);
+
+            requestQuery.limit = '-12';
+
+            expect(helpers.getLimit(requestQuery)).to.be.equal(-12);
+
+            requestQuery.limit = '0';
+
+            expect(helpers.getLimit(requestQuery)).to.be.equal(0);
+        });
+    });
 });

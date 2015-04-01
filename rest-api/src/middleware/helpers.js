@@ -78,3 +78,30 @@ exports.isObjectEmpty = function(json) {
     //may not work in ie8-9
     return Object.keys(json).length === 0;
 };
+
+exports.parseInt = function(value) {
+    if (/^(\-|\+)?([0-9]+|Infinity)$/.test(value)) {
+        return Number(value);
+    }
+    return NaN;
+};
+
+exports.getOffset = function(requestQuery) {
+    var offset = requestQuery && exports.parseInt(requestQuery.offset);
+
+    if(!requestQuery || !Number.isFinite(offset)) {
+        return 0;
+    } 
+
+    return offset;
+};
+
+exports.getLimit = function(requestQuery) {
+    var limit = requestQuery && exports.parseInt(requestQuery.limit);
+
+    if(!requestQuery || !Number.isFinite(limit)) {
+        return 20;
+    }
+
+    return limit;
+};

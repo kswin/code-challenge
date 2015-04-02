@@ -36,16 +36,19 @@ var ExerciseSchema = new mongoose.Schema({
 });
 
 ExerciseSchema.methods.setDifficultyLevel = function() {
-    if (distractors.length >= 4) {
+    if (this.distractors.length >= 4) {
         this.difficulty = 'hard';
+        return;
     }
 
-    if (distractors.length >= 2) {
+    if (this.distractors.length >= 2) {
         this.difficulty = 'medium';
+        return;
     }
 
-    if (distractors.length >= 1) {
+    if (this.distractors.length >= 1) {
         this.difficulty = 'easy';
+        return;
     };
 };
 

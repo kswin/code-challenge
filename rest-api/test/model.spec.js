@@ -1,34 +1,47 @@
-// var expect = require('chai').expect;
-// var queryBuilders = require('../../src/helpers/queryBuilders');
-// var BadRequest = require('../../src/middleware/errors/types/BadRequest');
+var expect = require('chai').expect;
+var Exercise = require('../src/model');
 
-// var expect = require('chai').expect;
-// var helpers = require('../../src/middleware/helpers');
+describe('[Rest Api] Exercise Methods', function(){
+    var sampleExercise;
 
-// describe('[Rest Api] Exercise Helpers', function(){
-//     describe('getDifficulty', function(){
-//         it('should return hard when there are 4 or more distractors', function(){
-//             var distractors = ['a', 'b', 'c', 'd'];
+    describe('setDifficultyLevel', function(){
+        it('should return hard when there are 4 or more distractors', function(){
+            sampleExercise = new Exercise({
+                question: 'What is 2 * 2?',
+                answer: '4',
+                distractors: ['1', '2', '3', '5']
+            });
 
-//             expect(helpers.getDifficulty(distractors)).to.be.equal('hard');
+            sampleExercise.setDifficultyLevel();
+            expect(sampleExercise.difficulty).to.be.equal('hard');
 
-//             distractors = ['a', 'b', 'c', 'd', 'e'];
-//             expect(helpers.getDifficulty(distractors)).to.be.equal('hard');
-//         });
+            sampleExercise.distractors = ['1', '2', '3', '5', '6'];
+            expect(sampleExercise.difficulty).to.be.equal('hard');
+        });
 
-//         it('should return medium when there are 2-3 distractors', function(){
-//             var distractors = ['a', 'b', 'c'];
+        it('should return medium when there are 2-3 distractors', function(){
+            sampleExercise = new Exercise({
+                question: 'What is 2 * 2?',
+                answer: '4',
+                distractors: ['1', '2', '3']
+            });
 
-//             expect(helpers.getDifficulty(distractors)).to.be.equal('medium');
+            sampleExercise.setDifficultyLevel();
+            expect(sampleExercise.difficulty).to.be.equal('medium');
 
-//             distractors = ['a', 'b'];
-//             expect(helpers.getDifficulty(distractors)).to.be.equal('medium');
-//         });
+            sampleExercise.distractors = ['1', '2'];
+            expect(sampleExercise.difficulty).to.be.equal('medium');
+        });
 
-//         it('should return easy when there is 1 distractors', function(){
-//             var distractors = ['a'];
+        it('should return easy when there is 1 distractors', function(){
+            sampleExercise = new Exercise({
+                question: 'What is 2 * 2?',
+                answer: '4',
+                distractors: ['1']
+            });
 
-//             expect(helpers.getDifficulty(distractors)).to.be.equal('easy');
-//         });
-//     });
-// });
+            sampleExercise.setDifficultyLevel();
+            expect(sampleExercise.difficulty).to.be.equal('easy');
+        });
+    });
+});

@@ -1,61 +1,68 @@
 var Exercise = require('./model'),
     debug = require('debug')('code-challenge:controller'),
-    helpers = require('./middleware/helpers');
+    queryBuilders = require('./helpers/queryBuilders'),
+    errorHandlers = require('./middleware/errors/handlers');
 
+//should throw bad request
 exports.getExercises = function(req, res, next) {
     var criteria,
-        sortString,
-        query;
+        sortString;
 
     try {
-        criteria = helpers.buildCriteria(req.query);
-
-        query = Exercise.find(criteria, function(err, exercises) {
-            if (err) {
-                return next(err);
-            }
-            res.json(exercises);
-        });
-
-        if(req.query.sort){
-            sortString = helpers.buildSortString(req.query);
-            query.sort(sortString);
-        }
-
-        query.skip(helpers.getOffset(req.query))
-            .limit(helpers.getLimit(req.query));
-
-    } catch (e) {
-        next(e);
+        criteria = queryBuilders.buildCriteria(req.query);
+        sortString = req.query.sort ? queryBuilders.buildSortString(req.query) : '';
+    } catch (err) {
+        next(err);
+        return;
     }
+
+    Exercise.find(criteria, callback)
+        .sort(sortString)
+        .skip(queryBuilders.sanitizeOffset(req.query.offset))
+        .limit(queryBuilders.sanitizeLimit(req.query.limit));
+
+    function callback (err, exercises) {
+        if (err) {
+            console.log('getExercises: ' + err.name);
+            next(err);
+        }
+        res.json(exercises);
+    };
 };
 
+//should throw not found
 exports.getExerciseById = function(req, res, next) {
-    var callback = function(err, exercise) {
+    Exercise.findById(req.params.id, callback);
+
+    function callback(err, exercise) {
         if (err) {
+            console.log('getExerciseById: ' + err.name);
             return next(err);
         }
         res.json(exercise);
     };
-
-    Exercise.findById(req.params.id, callback);
 };
 
+//should throw bad request
 exports.createExercise = function(req, res, next) {
-    var callback = function(err, createdExercise) {
+    Exercise.create(req.body, callback);
+
+    function callback(err, createdExercise) {
         if (err) {
+            console.log('createdExercise: ' + err.name);
             return next(err);
         }
         res.json(createdExercise);
     };
-    debug('create ' + req.body);
-
-    Exercise.create(req.body, callback);
 };
 
+//should throw bad request
 exports.updateExerciseById = function(req, res, next) {
-    Exercise.findById(req.params.id, function(err, exercise) {
+    Exercise.findById(req.params.id, callback);
+
+    function callback(err, exercise) {
         if (err) {
+            console.log('updateExerciseById: ' + err.name);
             return next(err);
         }
 
@@ -71,16 +78,18 @@ exports.updateExerciseById = function(req, res, next) {
 
             res.json(exercise);
         });
-    });
+    };
 };
 
+//should throw not found
 exports.deleteExerciseById = function(req, res, next) {
-    var callback = function(err, deletedExercise) {
+    Exercise.findByIdAndRemove(req.params.id, callback);
+
+    function callback (err, deletedExercise) {
         if (err) {
+            console.log('deleteExerciseById:' + err.name);
             return next(err);
         }
         res.json(deletedExercise);
     };
-
-    Exercise.findByIdAndRemove(req.params.id, callback);
 };

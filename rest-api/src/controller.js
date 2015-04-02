@@ -35,7 +35,7 @@ exports.getExerciseById = function(req, res, next) {
 
     function callback(err, exercise) {
         if(!exercise) {
-            throw new NotFound('Exercise with id ' + req.params.id + ' is not found');
+            return next(new NotFound('Exercise with id ' + req.params.id + ' is not found'));
         } else if (err) {
             console.log('getExerciseById: ' + err.name);
             return next(err);
@@ -62,7 +62,7 @@ exports.updateExerciseById = function(req, res, next) {
 
     function callback(err, exercise) {
         if(!exercise) {
-            throw new NotFound('Exercise with id ' + req.params.id + ' is not found');
+            return next(new NotFound('Exercise with id ' + req.params.id + ' is not found'));
         } else if (err) {
             console.log('updateExerciseById: ' + err.name);
             return next(err);
@@ -88,7 +88,7 @@ exports.deleteExerciseById = function(req, res, next) {
 
     function callback (err, deletedExercise) {
         if(!deletedExercise) {
-            throw new NotFound('Exercise with id ' + req.params.id + ' is not found');
+            return next(new NotFound('Exercise with id ' + req.params.id + ' is not found'));
         } else if (err) {
             console.log('deleteExerciseById:' + err.name);
             return next(err);

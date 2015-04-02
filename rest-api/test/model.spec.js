@@ -1,4 +1,8 @@
 // var expect = require('chai').expect;
+// var queryBuilders = require('../../src/helpers/queryBuilders');
+// var BadRequest = require('../../src/middleware/errors/types/BadRequest');
+
+// var expect = require('chai').expect;
 // var helpers = require('../../src/middleware/helpers');
 
 // describe('[Rest Api] Exercise Helpers', function(){

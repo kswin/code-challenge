@@ -84,6 +84,12 @@ describe('[Rest Api] Query building functions', function() {
             };
 
             expect(queryBuilders.buildSortString(requestQuery)).to.be.equal('created -difficulty');
+
+            requestQuery = {
+                sort: 'created'        
+            };
+
+            expect(queryBuilders.buildSortString(requestQuery)).to.be.equal('created');
         });
     });
 

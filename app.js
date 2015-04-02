@@ -11,8 +11,8 @@ app.use(express.static(__dirname + '/public'));
 
 app.use('/', exercises);
 
-app.use(errorsHandlers.notFound);
-app.use(errorsHandlers.badRequest);
-app.use(errorsHandlers.catchAll);
+app.use(errorsHandlers.notFoundHandler);
+app.use(errorsHandlers.badRequestHandler);
+app.use(errorsHandlers.genericErrorHandler);
 
 module.exports = app;

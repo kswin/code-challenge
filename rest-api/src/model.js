@@ -1,7 +1,6 @@
 var mongoose = require('mongoose'),
     debug = require('debug')('code-challenge:model'),
-    helpers = require('./middleware/helpers'),
-    validators = require('./middleware/validators');
+    validators = require('./helpers/validators');
 
 var ExerciseSchema = new mongoose.Schema({
     question: {

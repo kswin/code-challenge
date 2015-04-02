@@ -36,6 +36,34 @@
             "allowEmptyValue": false,
             "collectionFormat": "multi",
             "allowMultiple": true
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "number of items to skip. default is 0.",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "number of items to return. default is 20.",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "specifies the order of returned matches. accepted values are created, modified and difficulty, with optional '-' in front to note descending order. e.g. ?sort=-created,difficulty",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "difficulty",
+            "in": "query",
+            "description": "easy, medium or hard",
+            "required": false,
+            "type": "string"
           }
         ],
         "tags": ["exercise"],
@@ -47,6 +75,18 @@
               "items":  {
                 "$ref": "#/definitions/Exercise"
               }
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/GeneralError"
+            }
+          },
+          "500": {
+            "description": "Unexpected server error.",
+            "schema": {
+              "$ref": "#/definitions/GeneralError"
             }
           }
         }
@@ -74,6 +114,18 @@
             "schema": {
               "$ref": "#/definitions/Exercise"
             }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/GeneralError"
+            }
+          },
+          "500": {
+            "description": "Unexpected server error.",
+            "schema": {
+              "$ref": "#/definitions/GeneralError"
+            }
           }
         }
       }
@@ -97,6 +149,18 @@
             "description": "A single exercise.",
             "schema": {
               "$ref": "#/definitions/Exercise"
+            }
+          },
+          "404": {
+            "description": "Entity not found.",
+            "schema": {
+              "$ref": "#/definitions/GeneralError"
+            }
+          },
+          "500": {
+            "description": "Unexpected server error.",
+            "schema": {
+              "$ref": "#/definitions/GeneralError"
             }
           }
         }
@@ -129,6 +193,18 @@
             "schema": {
               "$ref": "#/definitions/Exercise"
             }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/GeneralError"
+            }
+          },
+          "500": {
+            "description": "Unexpected server error.",
+            "schema": {
+              "$ref": "#/definitions/GeneralError"
+            }
           }
         }
       },
@@ -150,6 +226,18 @@
             "description": "Deleted exercise.",
             "schema": {
               "$ref": "#/definitions/Exercise"
+            }
+          },
+          "404": {
+            "description": "Entity not found.",
+            "schema": {
+              "$ref": "#/definitions/GeneralError"
+            }
+          },
+          "500": {
+            "description": "Unexpected server error.",
+            "schema": {
+              "$ref": "#/definitions/GeneralError"
             }
           }
         }
@@ -189,11 +277,17 @@
           "type": "date"
         }
       }
-    }
-  },
-  "responses": {
-    "NotFound": {
-      "description": "Exercise not found"
+    },
+    "GeneralError": {
+      "required": ["code", "message"],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
     }
   }
 }

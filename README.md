@@ -29,13 +29,14 @@ $ npm start
 ```
 
 ### Usage
-1. Parse data dump and upload to REST API
+- Parse data dump and upload to REST API
 ```
 $ cd code-challenge/parser/src
 $ node parse.js /assets/smarterer_code_challenge_question_dump.csv ~/parser_output.json 
 $ API_HOST=kwin-code-challenge.herokuapp.com PORT=80 node parser/src/upload.js ~/parser_output.json
 ```
-2. [Read api docs](http://kwin-code-challenge.herokuapp.com/api-docs/)
+
+- [Read api docs](http://kwin-code-challenge.herokuapp.com/api-docs/)
     - You can experiment with the REST calls from Swagger UI directly or us a different REST client like Postman
     -  [Swagger UI does not support multiple query params] at the moment
 
@@ -45,9 +46,6 @@ $ API_HOST=kwin-code-challenge.herokuapp.com PORT=80 node parser/src/upload.js ~
 ```
 $ npm test
 ```
-
-### TODOs
-- update swagger docs with new params for GETs/errors
 
 
 ----

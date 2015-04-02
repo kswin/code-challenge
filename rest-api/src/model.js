@@ -36,12 +36,26 @@ var ExerciseSchema = new mongoose.Schema({
     }]
 });
 
+ExerciseSchema.methods.setDifficultyLevel = function() {
+    if (distractors.length >= 4) {
+        this.difficulty = 'hard';
+    }
+
+    if (distractors.length >= 2) {
+        this.difficulty = 'medium';
+    }
+
+    if (distractors.length >= 1) {
+        this.difficulty = 'easy';
+    };
+};
+
 ExerciseSchema.pre('save', function(next) {
     var exercise = this;
 
     exercise.modified = new Date();
 
-    exercise.difficulty = helpers.getDifficulty(exercise.distractors);
+    exercise.setDifficultyLevel();
 
     try {
         validators.validateDistractors(exercise.distractors, exercise.answer);

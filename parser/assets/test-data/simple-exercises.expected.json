@@ -5,6 +5,9 @@
         "distractors": [
             "3572",
             "9415"
+        ],
+        "keywords": [
+            "multiplication"
         ]
     },
     {
@@ -14,6 +17,9 @@
             "3952",
             "3906",
             "2694"
+        ],
+        "keywords": [
+            "multiplication"
         ]
     },
     {
@@ -22,6 +28,9 @@
         "distractors": [
             "874",
             "123"
+        ],
+        "keywords": [
+            "multiplication"
         ]
     }
 ]

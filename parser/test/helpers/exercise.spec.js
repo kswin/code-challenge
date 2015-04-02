@@ -44,7 +44,7 @@ describe('[Parser] Exercise helper functions', function(){
             expect(sanitizedExercise.distractors).to.be.deep.equal(['3176','6903']);
         });
 
-        it('return unchanged exercise if no sanitization is needed', function() {
+        it('return add proper keyword to exercise', function() {
             var exercise = {
                 question: 'What is 1754 - 3936?',
                 answer: '-2182',
@@ -56,7 +56,8 @@ describe('[Parser] Exercise helper functions', function(){
             expect(sanitizedExercise).to.be.deep.equal({
                 question: 'What is 1754 - 3936?',
                 answer: '-2182',
-                distractors: ['3176','6529','6903']
+                distractors: ['3176','6529','6903'],
+                keywords: ['subtraction']
             });
         });
     });
@@ -113,6 +114,15 @@ describe('[Parser] Exercise helper functions', function(){
             };
 
             expect(exerciseHelpers.isValidExercise(exercise)).to.be.true;
+        });
+    });
+
+    describe('getExerciseType', function(){
+        it('should return correct exercise type based on question content', function(){
+            expect(exerciseHelpers.getExerciseType('What is 2 * 2?')).to.be.equal('multiplication');
+            expect(exerciseHelpers.getExerciseType('What is 2 + 2?')).to.be.equal('addition');
+            expect(exerciseHelpers.getExerciseType('What is 2 - 2?')).to.be.equal('subtraction');
+            expect(exerciseHelpers.getExerciseType('What is 2 / 2?')).to.be.equal('division');
         });
     });
 });

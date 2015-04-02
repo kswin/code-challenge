@@ -27,6 +27,14 @@ describe('[Rest Api] Middleware', function(){
             expect(validators.validateDistractors.bind(null, distractors, answer))
                 .to.throw('Distractor list should not be empty');
         });
+
+        it('should throw error if distractors list is too long', function(){
+            var distractors = ['1', '2', '3', '4', '5', '6', '7', '8'],
+                answer = '11';
+
+            expect(validators.validateDistractors.bind(null, distractors, answer))
+                .to.throw('Distractor list should contain at most 7 items');
+        });
     });
 
     describe('validateDifficultyValue', function(){

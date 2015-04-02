@@ -6,7 +6,11 @@ exports.validateDistractors = function (distractors, answer) {
         distractorsLength = distractors && distractors.length;
 
     if(distractorsLength === 0) {
-        throw new Error('Distractor list should not be empty');
+        throw new BadRequest('Distractor list should not be empty');
+    }
+
+    if(distractors.length > 7) {
+        throw new BadRequest('Distractor list should contain at most 7 items');
     }
 
     distractors.sort();

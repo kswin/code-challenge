@@ -1,5 +1,5 @@
-var columnHelpers = require('./column'),
-    generalHelpers = require('./general');
+var columnUtils = require('./column'),
+    utils = require('./utils');
 
 exports.sanitizeExercise = function(json) {
     if(typeof json.question !== 'string') {
@@ -10,9 +10,9 @@ exports.sanitizeExercise = function(json) {
         json.answer = JSON.stringify(json.answer);
     }
 
-    if(!(Array.isArray(json.distractors))) {
+    if(!Array.isArray(json.distractors)) {
         var distractors = json.distractors.split(',');
-        json.distractors = generalHelpers.removeEmptyStringsFromArray(distractors);
+        json.distractors = utils.removeEmptyStringsFromArray(distractors);
     }
 
     var exerciseType = exports.getExerciseType(json.question);
@@ -23,9 +23,9 @@ exports.sanitizeExercise = function(json) {
 };
 
 exports.isValidExercise = function(json) {
-    return columnHelpers.isValidQuestionValue(json.question)
-        && columnHelpers.isValidAnswerValue(json.answer)
-        && columnHelpers.isValidDistractorsValue(json.distractors);
+    return columnUtils.isValidQuestionValue(json.question)
+        && columnUtils.isValidAnswerValue(json.answer)
+        && columnUtils.isValidDistractorsValue(json.distractors);
 };
 
 exports.getExerciseType = function(question) {

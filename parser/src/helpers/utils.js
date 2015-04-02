@@ -37,7 +37,7 @@ exports.zipListsIntoJson = function(keys, values) {
         i,
         keysLength = keys.length;
 
-    if(!(keys instanceof Array) || keysLength === 0) {
+    if(!Array.isArray(keys) || keysLength === 0) {
         throw new TypeError('Keys must be an array of non-empty values');
     }
 

@@ -14,7 +14,7 @@ exports.isValidDistractorsValue = function(distractors) {
     var i,
         length = distractors && distractors.length;
 
-    if(length === 0 || !(distractors instanceof Array) ) {
+    if(length === 0 || !Array.isArray(distractors)) {
         return false;
     }
 

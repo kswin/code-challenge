@@ -1,9 +1,9 @@
 var fs = require('fs'),
     through = require('through2'),
     split = require('split'),
-    rowHelpers = require('./helpers/row'),
-    exerciseHelpers = require('./helpers/exercise'),
-    generalHelpers = require('./helpers/general');
+    rowUtils = require('./helpers/row'),
+    exerciseUtils = require('./helpers/exercise'),
+    utils = require('./helpers/utils');
 
 exports.parseCSV = function(fileSource, fileDestination){
     var lineNumber = 0,
@@ -18,17 +18,17 @@ exports.parseCSV = function(fileSource, fileDestination){
             sanitizedExercise,
             self = this;
 
-        row = rowHelpers.parseLine(buffer.toString());
+        row = rowUtils.parseLine(buffer.toString());
 
         if(lineNumber === 0) {
             headers = row;
         } else if (lineNumber > 0){
             entry = row;
 
-            exercise = generalHelpers.zipListsIntoJson(headers, entry);
-            sanitizedExercise = exerciseHelpers.sanitizeExercise(exercise);
+            exercise = utils.zipListsIntoJson(headers, entry);
+            sanitizedExercise = exerciseUtils.sanitizeExercise(exercise);
             
-            if(exerciseHelpers.isValidExercise(sanitizedExercise)) {
+            if(exerciseUtils.isValidExercise(sanitizedExercise)) {
                 self.push(sanitizedExercise);
             }
         }
@@ -37,12 +37,12 @@ exports.parseCSV = function(fileSource, fileDestination){
         next();
     };
 
-    if(!generalHelpers.hasFileExtension(fileSource, 'csv')){
+    if(!utils.hasFileExtension(fileSource, 'csv')){
         throw new Error('Unexpected file extension: ' + fileSource);
     }
 
     return fs.createReadStream(fileSource)
-        .pipe(split(generalHelpers.trimTrailingCommas))
+        .pipe(split(utils.trimTrailingCommas))
         .pipe(through.obj(transformCSVLineToJson))
         .on('data', function(data) {
             exercises.push(data);

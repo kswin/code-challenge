@@ -35,19 +35,11 @@ $ npm test
 ```
 
 ### TODOs
-=================
-- Error Handlers
-    - not found 404
-    - bad request 400 (e.g. invalid params)
-    - generic 500
-    - Limit the distractors length
-    - Unit test validation
-=================
-    - Unit test for filters/error setup?
-=================
-- Add Accept Headers?
+- Merge to Master
+- Deploy to Heroku
 - update swagger docs with new params for GETs/errors
 - Create instructions on how to use the REST API and parser (Swagger UI has a bug with multi params https://github.com/swagger-api/swagger-ui/issues/987)
+----
 
 #### Nice to haves
 - [Parser]: Add decimals support
@@ -58,7 +50,7 @@ $ npm test
 - [Query]: Add "X-Total-Count" in response header for item total 
 - [Query]: Add "Link" for next/previous pages in response header
 - [Rest Api]: Change baseurl to use api/v1
-- [Query]: [Pagination optimization to avoid using .skip():https://sammaye.wordpress.com/2012/05/25/mongodb-paging-using-ranged-queries-avoiding-skip/]
+- [Query]: [Pagination optimization to avoid using .skip()](https://sammaye.wordpress.com/2012/05/25/mongodb-paging-using-ranged-queries-avoiding-skip/)
 ----
 
 [MongoDB]:http://docs.mongodb.org/manual/

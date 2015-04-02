@@ -39,6 +39,8 @@ $ npm test
 - Deploy to Heroku
 - update swagger docs with new params for GETs/errors
 - Create instructions on how to use the REST API and parser (Swagger UI has a bug with multi params https://github.com/swagger-api/swagger-ui/issues/987)
+
+
 ----
 
 #### Nice to haves
@@ -51,6 +53,8 @@ $ npm test
 - [Query]: Add "Link" for next/previous pages in response header
 - [Rest Api]: Change baseurl to use api/v1
 - [Query]: [Pagination optimization to avoid using .skip()](https://sammaye.wordpress.com/2012/05/25/mongodb-paging-using-ranged-queries-avoiding-skip/)
+
+
 ----
 
 [MongoDB]:http://docs.mongodb.org/manual/

@@ -1,9 +1,9 @@
 var Exercise = require('./model'),
     debug = require('debug')('code-challenge:controller'),
     queryBuilders = require('./helpers/queryBuilders'),
-    errorHandlers = require('./middleware/errors/handlers');
+    errorHandlers = require('./middleware/errors/handlers'),
+    NotFound = require('./middleware/errors/types/NotFound');
 
-//should throw bad request
 exports.getExercises = function(req, res, next) {
     var criteria,
         sortString;
@@ -30,20 +30,21 @@ exports.getExercises = function(req, res, next) {
     };
 };
 
-//should throw not found
 exports.getExerciseById = function(req, res, next) {
     Exercise.findById(req.params.id, callback);
 
     function callback(err, exercise) {
-        if (err) {
+        if(!exercise) {
+            throw new NotFound('Exercise with id ' + req.params.id + ' is not found');
+        } else if (err) {
             console.log('getExerciseById: ' + err.name);
             return next(err);
         }
+
         res.json(exercise);
     };
 };
 
-//should throw bad request
 exports.createExercise = function(req, res, next) {
     Exercise.create(req.body, callback);
 
@@ -56,12 +57,13 @@ exports.createExercise = function(req, res, next) {
     };
 };
 
-//should throw bad request
 exports.updateExerciseById = function(req, res, next) {
     Exercise.findById(req.params.id, callback);
 
     function callback(err, exercise) {
-        if (err) {
+        if(!exercise) {
+            throw new NotFound('Exercise with id ' + req.params.id + ' is not found');
+        } else if (err) {
             console.log('updateExerciseById: ' + err.name);
             return next(err);
         }
@@ -81,12 +83,13 @@ exports.updateExerciseById = function(req, res, next) {
     };
 };
 
-//should throw not found
 exports.deleteExerciseById = function(req, res, next) {
     Exercise.findByIdAndRemove(req.params.id, callback);
 
     function callback (err, deletedExercise) {
-        if (err) {
+        if(!deletedExercise) {
+            throw new NotFound('Exercise with id ' + req.params.id + ' is not found');
+        } else if (err) {
             console.log('deleteExerciseById:' + err.name);
             return next(err);
         }

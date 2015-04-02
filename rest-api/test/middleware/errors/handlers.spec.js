@@ -60,6 +60,41 @@ describe('[Rest Api] Middleware Error Handlers', function(){
         });
     });
 
+    describe('mongooseErrorHandler', function(){
+        it('should set a 400 status code and parse the validation messages set by Mongoose', function(){
+            err = {
+                "message": "Exercise validation failed",
+                "name": "ValidationError",
+                "errors": {
+                    "answer": {
+                        "properties": {
+                            "type": "required",
+                            "message": "Path `{PATH}` is required.",
+                            "path": "answer",
+                            "value": ""
+                        },
+                        "message": "Path `answer` is required.",
+                        "name": "ValidatorError",
+                        "kind": "required",
+                        "path": "answer",
+                        "value": ""
+                    }
+                }
+            };
+
+
+            handlers.mongooseErrorHandler(err, req, res, next);
+
+            expect(res.statusCode).to.be.equal(400);
+
+            expect(JSON.parse(res._getData())).to.be.deep.equal({
+                code: 400,
+                message: 'Path `answer` is required.'
+            });
+            expect(res._isJSON()).to.be.true;
+        });
+    });
+
     describe('genericErrorHandler', function(){
         it('should set a 500 status code', function(){
             err = new InternalServerError('Server Error.');

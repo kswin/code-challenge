@@ -28,6 +28,41 @@ exports.badRequestHandler = function(err, req, res, next){
     }
 };
 
+exports.mongooseErrorHandler = function(err, req, res, next){
+    var errors = err.errors,
+        humanReadableMessage = [];
+
+    debugger;
+
+    if(errors && err.name === 'ValidationError') {
+
+        res.status(400);
+
+        humanReadableMessage.push(getHumanReadableMessage('question'));
+        humanReadableMessage.push(getHumanReadableMessage('answer'));
+        humanReadableMessage.push(getHumanReadableMessage('distractors'));
+
+        console.log('done');
+
+        res.json({
+            code: 400,
+            message: humanReadableMessage.join(' ').trim()
+        });
+    } else {
+        next(err);
+    }
+
+    function getHumanReadableMessage(errorName) {
+        debugger;
+
+        if(errors[errorName] !== undefined) {
+            return errors[errorName].message;
+        }
+
+        return '';
+    };
+};
+
 exports.genericErrorHandler = function(err, req, res, next){
     res.status(500).json({
         code: 500,

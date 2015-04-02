@@ -1,5 +1,5 @@
 function NotFound(message) {
-  this.name = '404';
+  this.name = 'NotFound';
   this.message = message || 'The server has not found anything matching the Request-URI';
 }
 

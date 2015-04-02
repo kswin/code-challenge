@@ -3,7 +3,7 @@ var fs = require('fs');
 var exec = require('child_process').exec;
 
 var rootDir = __dirname + '/..',
-    script = rootDir + '/src/upload.js',
+    script = rootDir + '/src/uploader.js',
     command; 
 
 describe('Upload to /exercises api', function(){

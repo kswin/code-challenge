@@ -3,7 +3,7 @@ var fs = require('fs');
 var exec = require('child_process').exec;
 
 var rootDir = __dirname + '/..',
-    script = rootDir + '/src/parse.js',
+    script = rootDir + '/src/parser.js',
     command; 
 
 describe('Parser', function() {      

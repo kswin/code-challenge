@@ -78,16 +78,10 @@
             }
           },
           "400": {
-            "description": "Bad request.",
-            "schema": {
-              "$ref": "#/definitions/GeneralError"
-            }
+            "description": "Bad request."
           },
           "500": {
-            "description": "Unexpected server error.",
-            "schema": {
-              "$ref": "#/definitions/GeneralError"
-            }
+            "description": "Unexpected server error."
           }
         }
       },
@@ -116,16 +110,10 @@
             }
           },
           "400": {
-            "description": "Bad request.",
-            "schema": {
-              "$ref": "#/definitions/GeneralError"
-            }
+            "description": "Bad request."
           },
           "500": {
-            "description": "Unexpected server error.",
-            "schema": {
-              "$ref": "#/definitions/GeneralError"
-            }
+            "description": "Unexpected server error."
           }
         }
       }
@@ -152,16 +140,10 @@
             }
           },
           "404": {
-            "description": "Entity not found.",
-            "schema": {
-              "$ref": "#/definitions/GeneralError"
-            }
+            "description": "Entity not found."
           },
           "500": {
-            "description": "Unexpected server error.",
-            "schema": {
-              "$ref": "#/definitions/GeneralError"
-            }
+            "description": "Unexpected server error."
           }
         }
       },
@@ -195,16 +177,10 @@
             }
           },
           "400": {
-            "description": "Bad request.",
-            "schema": {
-              "$ref": "#/definitions/GeneralError"
-            }
+            "description": "Bad request."
           },
           "500": {
-            "description": "Unexpected server error.",
-            "schema": {
-              "$ref": "#/definitions/GeneralError"
-            }
+            "description": "Unexpected server error."
           }
         }
       },
@@ -229,16 +205,10 @@
             }
           },
           "404": {
-            "description": "Entity not found.",
-            "schema": {
-              "$ref": "#/definitions/GeneralError"
-            }
+            "description": "Entity not found."
           },
           "500": {
-            "description": "Unexpected server error.",
-            "schema": {
-              "$ref": "#/definitions/GeneralError"
-            }
+            "description": "Unexpected server error."
           }
         }
       }

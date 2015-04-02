@@ -15,7 +15,7 @@ exports.sanitizeOffset = function(queryOffset) {
 exports.sanitizeLimit = function(queryLimit) {
     var limit = queryLimit && utils.parseInt(queryLimit);
 
-    if(!queryLimit || !Number.isFinite(limit)) {
+    if(queryLimit === undefined || !Number.isFinite(limit)) {
         return 20;
     }
 

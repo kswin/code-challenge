@@ -37,8 +37,8 @@ $ API_HOST=kwin-code-challenge.herokuapp.com PORT=80 node parser/src/upload.js ~
 ```
 
 - [Read api docs](http://kwin-code-challenge.herokuapp.com/api-docs/)
-    - You can experiment with the REST calls from Swagger UI directly or us a different REST client like Postman
-    -  [Swagger UI does not support multiple query params] at the moment
+    - You can experiment with the REST calls from Swagger UI directly or use a different REST client like Postman
+    -  [Swagger UI does not support arrayed query params] at the moment
 
 
 ### Development Notes
@@ -73,4 +73,4 @@ $ npm test
 [express]:http://expressjs.com
 [Mongoose]:http://mongoosejs.com/docs/guide.html
 [swagger-ui]: https://github.com/swagger-api/swagger-ui
-[Swagger UI does not support multiple query params]: https://github.com/swagger-api/swagger-ui/issues/987
+[Swagger UI does not support arrayed query params]: https://github.com/swagger-api/swagger-ui/issues/987

@@ -40,7 +40,7 @@
           {
             "name": "offset",
             "in": "query",
-            "description": "number of items to skip. default is 0. invalid offsets values are ignored and default is used instead.",
+            "description": "number of items to skip. default is 0. invalid offset values are ignored and default is used instead.",
             "required": false,
             "type": "integer"
           },

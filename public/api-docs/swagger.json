@@ -40,14 +40,14 @@
           {
             "name": "offset",
             "in": "query",
-            "description": "number of items to skip. default is 0.",
+            "description": "number of items to skip. default is 0. invalid offsets values are ignored and default is used instead.",
             "required": false,
             "type": "integer"
           },
           {
             "name": "limit",
             "in": "query",
-            "description": "number of items to return. default is 20.",
+            "description": "number of items to return. default is 20. invalid limit values are ignored and default is used instead.",
             "required": false,
             "type": "integer"
           },
@@ -98,7 +98,7 @@
             "description": "An exercise or array of exercises to be added to the system.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Exercise"
+              "$ref": "#/definitions/Body"
             }
           }
         ],
@@ -165,7 +165,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Exercise"
+              "$ref": "#/definitions/Body"
             } 
           }
         ],
@@ -238,7 +238,8 @@
           }
         },
         "difficulty": {
-          "type": "string"
+          "type": "string",
+          "readOnly": true
         },
         "modified": {
           "type": "date"
@@ -247,6 +248,28 @@
           "type": "date"
         }
       }
+    },
+    "Body": {
+      "required": ["question", "answer", "distractors"],
+      "properties": {
+        "answer": {
+          "type": "string"
+        },
+        "distractors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "question": {
+          "type": "string"
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
     },
     "GeneralError": {
       "required": ["code", "message"],

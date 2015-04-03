@@ -98,11 +98,11 @@ describe('[Rest Api] Query building functions', function() {
             expect(queryBuilders.sanitizeOffset(NaN)).to.be.equal(0);
             expect(queryBuilders.sanitizeOffset(Infinity)).to.be.equal(0);
             expect(queryBuilders.sanitizeOffset('hello')).to.be.equal(0);
+            expect(queryBuilders.sanitizeOffset('-12')).to.be.equal(0);
         });
 
         it('should return number for strings that represent finite integers', function() {
             expect(queryBuilders.sanitizeOffset('12')).to.be.equal(12);
-            expect(queryBuilders.sanitizeOffset('-12')).to.be.equal(-12);
             expect(queryBuilders.sanitizeOffset('0')).to.be.equal(0);
         });
     });
@@ -112,11 +112,11 @@ describe('[Rest Api] Query building functions', function() {
             expect(queryBuilders.sanitizeLimit(NaN)).to.be.equal(20);
             expect(queryBuilders.sanitizeLimit(Infinity)).to.be.equal(20);
             expect(queryBuilders.sanitizeLimit('hello')).to.be.equal(20);
+            expect(queryBuilders.sanitizeLimit('-12')).to.be.equal(20);
         });
 
         it('should return number for strings that represent finite integers', function() {
             expect(queryBuilders.sanitizeLimit('12')).to.be.equal(12);
-            expect(queryBuilders.sanitizeLimit('-12')).to.be.equal(-12);
             expect(queryBuilders.sanitizeLimit('0')).to.be.equal(0);
         });
     });

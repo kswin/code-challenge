@@ -5,7 +5,7 @@ var utils = require('./utils'),
 exports.sanitizeOffset = function(queryOffset) {
     var offset = queryOffset && utils.parseInt(queryOffset);
 
-    if(!queryOffset || !Number.isFinite(offset)) {
+    if(!queryOffset || !Number.isFinite(offset) || offset < 0) {
         return 0;
     } 
 
@@ -15,7 +15,7 @@ exports.sanitizeOffset = function(queryOffset) {
 exports.sanitizeLimit = function(queryLimit) {
     var limit = queryLimit && utils.parseInt(queryLimit);
 
-    if(queryLimit === undefined || !Number.isFinite(limit)) {
+    if(queryLimit === undefined || !Number.isFinite(limit) || limit < 0) {
         return 20;
     }
 
